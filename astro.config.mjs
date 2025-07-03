@@ -9,8 +9,9 @@ export default defineConfig({
     },
   },
   integrations: [
-    storyblok({
-      accessToken: "Q3jH6AtV98UxC2agQQklaAtt",
+      storyblok({
+      // This now securely reads the token from Vercel's environment
+      accessToken: import.meta.env.STORYBLOK_TOKEN, 
       components: {
         page: "storyblok/Page",
         hero_section: "storyblok/HeroSection",
