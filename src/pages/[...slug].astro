@@ -9,7 +9,9 @@ export async function getStaticPaths() {
     version: "draft",
   });
 
-  const links = data.links;
+  // If data.links is empty, default to an empty object to prevent a crash
+  const links = data.links || {};
+
   return Object.values(links).map((link) => {
     return {
       params: { slug: link.slug === "home" ? undefined : link.slug },
