@@ -1,5 +1,17 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
+import { storyblok } from "@storyblok/astro";
 
-// https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  integrations: [
+    storyblok({
+      accessToken: "Q3jH6AtV98UxC2agQQklaAtt",
+      components: {
+        page: "storyblok/Page",
+        hero_section: "storyblok/HeroSection", // Add this line
+      },
+      apiOptions: {
+        region: "ca",
+      },
+    }),
+  ],
+});

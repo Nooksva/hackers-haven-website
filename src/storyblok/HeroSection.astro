@@ -1,0 +1,60 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+
+const { blok } = Astro.props;
+---
+
+<section
+  {...storyblokEditable(blok)}
+  style={`background-image: linear-gradient(rgba(20, 30, 25, 0.6), rgba(20, 30, 25, 0.6)), url(${blok.background_image.filename}/m/1920x0);`}
+>
+  <div class="content-container">
+    <h1 class="headline">{blok.headline}</h1>
+    <p class="subheadline">{blok.subheadline}</p>
+  </div>
+</section>
+
+<style>
+  section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .content-container {
+    max-width: 800px;
+  }
+
+  .headline {
+    font-family: 'Lora', serif; /* A font used on the old site */
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    margin: 0;
+  }
+
+  .subheadline {
+    font-family: 'Lato', sans-serif; /* A font used on the old site */
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-top: 1rem;
+    opacity: 0.9;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .headline {
+      font-size: 2.5rem;
+    }
+    .subheadline {
+      font-size: 1.2rem;
+    }
+  }
+</style>

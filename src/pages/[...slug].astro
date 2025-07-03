@@ -1,0 +1,37 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import Layout from "../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+  const { data } = await storyblokApi.get("cdn/links", {
+    version: "draft",
+  });
+
+  const links = data.links;
+  return Object.values(links).map((link) => {
+    return {
+      params: { slug: link.slug === "home" ? undefined : link.slug },
+    };
+  });
+}
+
+const { slug } = Astro.params;
+const storyblokApi = useStoryblokApi();
+
+let story;
+try {
+  const { data } = await storyblokApi.get(`cdn/stories/${slug || 'home'}`, {
+    version: "draft",
+  });
+  story = data.story;
+} catch (error) {
+  console.error(error);
+  return new Response("Story not found", { status: 404 });
+}
+---
+
+<Layout title={story.name}>
+  <StoryblokComponent blok={story.content} />
+</Layout>
